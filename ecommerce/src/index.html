@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Dashboard</title>
+    <style>
+        /* Add your CSS styles for the dashboard here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .container {
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background: #333;
+            color: white;
+            padding: 20px;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        .product-list {
+            margin: 20px 0;
+        }
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .order-list {
+            margin: 20px 0;
+        }
+        .order {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+		#auction-form {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#auction-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#auction-form input[type="text"],
+#auction-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#auction-form button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#auction-form button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Seller Dashboard</h1>
+		
+            
+    </div>
+	<div style="background-image:url('https://png.pngtree.com/thumb_back/fh260/back_our/20190625/ourmid/pngtree-blue-geometric-flattened-taobao-e-commerce-coupon-background-image_262564.jpg');">
+                <p><a href="#" id="products-link">Manage Products</a></p>
+                <p><a href="#" id="orders-link">Manage Orders</a></p>
+                
+		</div>
+	<div class="container">
+        
+    </div>
+
+	<section id="categories">
+        <h2></h2>
+        <ul>
+            <li><a href="ecommerceweb.html">Buy  products</a></li>
+         </ul>
+    </section>
+	<form id="auction-form">
+            <label for="item-name">procuct Name</label>
+            <input type="text" id="item-name" name="item-name" required>
+            <label for="starting-price">Price for sell</label>
+            <input type="number" id="starting-price" name="starting-price" required>
+            
+           
+            
+            <button type="submit">Add Product</button>
+        </form>
+	<div id="confirmation-message" style="display: none;">
+    Product added successfully!
+</div>
+
+    <div class="container">
+       
+        <div class="content">
+            <div id="products-section">
+                <h2>Manage Products</h2>
+                <div class="product-list">
+                    
+                </div>
+            </div>
+            <div id="orders-section" style="display: none;">
+                <h2>Manage Orders</h2>
+                <div class="order-list">
+                    <div class="order">
+                        <span>Order ID: 12345</span>
+                        <span>Total: 18000</span>
+                    </div>
+                    
+                </div>
+            </div>
+            <div id="profile-section" style="display: none;">
+                <h2>Profile</h2>
+                <p>Seller's Profile Information</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const productsLink = document.getElementById("products-link");
+            const ordersLink = document.getElementById("orders-link");
+            const profileLink = document.getElementById("profile-link");
+
+            const productsSection = document.getElementById("products-section");
+            const ordersSection = document.getElementById("orders-section");
+            const profileSection = document.getElementById("profile-section");
+
+            productsLink.addEventListener("click", function () {
+                productsSection.style.display = "block";
+                ordersSection.style.display = "none";
+                profileSection.style.display = "none";
+            });
+
+            ordersLink.addEventListener("click", function () {
+                productsSection.style.display = "none";
+                ordersSection.style.display = "block";
+                profileSection.style.display = "none";
+            });
+
+            profileLink.addEventListener("click", function () {
+                productsSection.style.display = "none";
+                ordersSection.style.display = "none";
+                profileSection.style.display = "block";
+            });
+        });
+		document.getElementById("auction-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Get values from the form
+    const itemName = document.getElementById("item-name").value;
+    const startingPrice = document.getElementById("starting-price").value;
+
+    // Create a new product element and display it
+    const productElement = document.createElement("div");
+    productElement.classList.add("product");
+    productElement.innerHTML = `
+        <span>${itemName}</span>
+        <span>Price: ${startingPrice} </span>
+    `;
+
+    // Append the new product element to the product-list
+    const productList = document.querySelector(".product-list"); // Make sure you have an element with class "product-list" to append to
+    productList.appendChild(productElement);
+
+    // Clear the form fields after submission
+    document.getElementById("item-name").value = "";
+    document.getElementById("starting-price").value = "";
+
+    // Display the confirmation message
+    const confirmationMessage = document.getElementById("confirmation-message");
+    confirmationMessage.style.display = "block";
+
+    // Hide the confirmation message after a few seconds (e.g., 3 seconds)
+    setTimeout(function () {
+        confirmationMessage.style.display = "none";
+    }, 3000); // 3000 milliseconds (3 seconds)
+});
+
+
+
+    
+
+    </script>
+</body>
+</html>
